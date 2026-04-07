@@ -1,25 +1,35 @@
 package br.com.senai.projeto.controller;
 
 import br.com.senai.projeto.model.Aluno;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.senai.projeto.service.AlunoService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/alunos")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AlunoController {
-    @GetMapping("/alunos")
-    public List<Aluno> listarAlunos() {
-        List<Aluno> alunos = new ArrayList<>();
-        alunos.add(new Aluno(1001, "Ana Beatriz", "Desenvolvimento de Sistemas"));
-        alunos.add(new Aluno(1002, "Carlos José", "Redes de Computadores"));
-        alunos.add(new Aluno(1003, "Mariana Silva", "Eletrotécnica"));
-        alunos.add(new Aluno(1004, "Pedro Henrique", "Automação Industrial"));
-        return alunos;
+
+    private final AlunoService service;
+
+    public AlunoController(AlunoService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Aluno> listar() {
+        return service.listar();
+    }
+
+    @PostMapping
+    public Aluno salvar(@RequestBody Aluno aluno) {
+        return service.salvar(aluno);
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
     }
 }

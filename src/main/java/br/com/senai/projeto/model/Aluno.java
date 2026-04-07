@@ -1,21 +1,22 @@
 package br.com.senai.projeto.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Aluno {
-    private int matricula;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long matricula;
     private String nome;
     private String curso;
-    public Aluno(int matricula, String nome, String curso) {
-        this.matricula = matricula;
-        this.nome = nome;
-        this.curso = curso;
-    }
-    public int getMatricula() {
-        return matricula;
-    }
-    public String getNome() {
-        return nome;
-    }
-    public String getCurso() {
-        return curso;
-    }
+
+    public Long getMatricula() { return matricula; }
+    public void setMatricula(Long matricula) { this.matricula = matricula; }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public String getCurso() { return curso; }
+    public void setCurso(String curso) { this.curso = curso; }
 }
